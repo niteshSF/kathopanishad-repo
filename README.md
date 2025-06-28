@@ -6,7 +6,7 @@ Kathopanishad is part of the upanishad apps developed by Samskriti Foundation, M
 
 ### Links to Related Repositories:
   
-- Upanishads backend: [https://github.com/Samskriti-Foundation/upanishads-backend](https://github.com/Samskriti-Foundation/upanishads-backend)
+- kathopanishad backend: https://github.com/niteshSF/kathopanishad-backend-repo
 
 ## Installation
 
