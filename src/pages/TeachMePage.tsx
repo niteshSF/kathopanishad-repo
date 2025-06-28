@@ -1,22 +1,22 @@
-import React from "react";
-import BaseLayout from "@/layouts/BaseLayout";
-import LeftScroll from "@/components/app/LeftScroll";
-import RightScroll from "@/components/app/RightScroll";
-import SutraView from "@/components/app/SutraView";
-import MeaningView from "@/components/app/MeaningView";
-import ButtonsPanel from "@/components/app/ButtonsPanel";
-import TexturedButton from "@/components/shared/TexturedButton";
-import HelpDropdown from "@/components/app/HelpDropdown";
+import React from "react"
+import BaseLayout from "@/layouts/BaseLayout"
+import LeftScroll from "@/components/app/LeftScroll"
+import RightScroll from "@/components/app/RightScroll"
+import SutraView from "@/components/app/SutraView"
+import MeaningView from "@/components/app/MeaningView"
+import ButtonsPanel from "@/components/app/ButtonsPanel"
+import TexturedButton from "@/components/shared/TexturedButton"
+import HelpDropdown from "@/components/app/HelpDropdown"
 
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"
 
-import Header_bg from "../assets/header_bg_all.png";
-import TitleImage from "../assets/Title.png";
-import logo from "@/assets/header_img.png";
+import Header_bg from "../assets/header_bg_all.png"
+import TitleImage from "../assets/Title.png"
+import logo from "@/assets/header_img.png"
 
 export default function TeachMePage() {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = useNavigate()
+  const location = useLocation()
 
   /** All top‑level nav buttons EXCEPT Help (that one lives in <HelpDropdown/>) */
   const navItems = [
@@ -24,7 +24,7 @@ export default function TeachMePage() {
     { label: "About", path: "/about" },
     { label: "Credits", path: "/credits" },
     { label: "Disclaimer", path: "/disclaimer" },
-  ];
+  ]
 
   return (
     <BaseLayout>
@@ -43,7 +43,11 @@ export default function TeachMePage() {
           {/* Left – Logo + Title */}
           <div className="cursor-pointer pl-1 flex items-center gap-6 pb-2">
             <img src={logo} alt="Left Icon" className="h-[88px] w-auto" />
-            <img src={TitleImage} alt="Title Logo" className="h-[65px] w-auto" />
+            <img
+              src={TitleImage}
+              alt="Title Logo"
+              className="h-[65px] w-auto"
+            />
           </div>
 
           {/* Center Title */}
@@ -115,5 +119,5 @@ export default function TeachMePage() {
         </div>
       </div>
     </BaseLayout>
-  );
+  )
 }

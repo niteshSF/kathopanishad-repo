@@ -69,19 +69,27 @@ const SearchBar = () => {
     khandaNo: number,
     sutraNo: number
   ) => {
+    console.log("👉 Selected Values:", { lang, modeRaw, khandaNo, sutraNo })
+
     setLanguage(lang)
     setSutraNo(sutraNo)
     setKhandaNo(khandaNo)
 
     if (modeRaw === Mode.Chant) {
       setMode(Mode.Chant)
-      navigate("/chant")
+      navigate("/chant", {
+        state: { khandaNo, sutraNo, lang },
+      })
     } else if (modeRaw === Mode.TeachMe) {
       setMode(Mode.TeachMe)
-      navigate("/teach-me")
+      navigate("/teach-me", {
+        state: { khandaNo, sutraNo, lang },
+      })
     } else if (modeRaw.startsWith("interpretation")) {
       setMode(Mode.LearnMore)
-      navigate("/learn-more")
+      navigate("/learn-more", {
+        state: { khandaNo, sutraNo, lang },
+      })
       const [, pType] = modeRaw.split(" - ")
       if (pType) setPhilosophy(pType as Philosophy)
     }
@@ -114,20 +122,21 @@ const SearchBar = () => {
           handleSearchSelect(
             result.lang,
             result.mode,
-            result.khanda_no,
-            result.sutra_no
+            result.chapter, // This is khandaNo
+            result.sutra_no // This is sutraNo
           )
         }
       >
         <p className="whitespace-nowrap overflow-hidden text-ellipsis flex-[8]">
           {result.text}
         </p>
-        <p className="flex-[2] text-right">
-          ॥
-          {result.sutra_no === 0 || result.sutra_no === -1
-            ? "S"
-            : result.sutra_no}
-          ॥ ({modeLabel})
+
+        <p className="flex-[2] text-right text-md text-gray-800">
+          ॥ {result.chapter <= 3 ? "1" : "2"}.{result.chapter}.{result.sutra_no}{" "}
+          ॥ <br />
+          <span className="text-[13px] font-semibold text-gray-800">
+            ({modeLabel})
+          </span>
         </p>
       </div>
     )
@@ -165,7 +174,6 @@ const SearchBar = () => {
           {isLoading && <CustomBeatLoader />}
           {error && <ErrorMessage error="Search failed" />}
 
-          {/* show “no results” only after first fetch */}
           {!isLoading && hasFetchedOnce && results.length === 0 && (
             <p className="text-darkbrown text-center font-semibold">
               No results found

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import BaseLayout from "@/layouts/BaseLayout";
 import LeftScroll from "@/components/app/LeftScroll";
@@ -5,17 +7,35 @@ import RightScroll from "@/components/app/RightScroll";
 import InterpretationView from "@/components/app/InterpretationView";
 import ButtonsPanel from "@/components/app/ButtonsPanel";
 import TexturedButton from "@/components/shared/TexturedButton";
-import HelpDropdown from "@/components/app/HelpDropdown";   // ⬅️ new import
-
-import { useNavigate, useLocation } from "react-router-dom";
+import HelpDropdown from "@/components/app/HelpDropdown";
 
 import Header_bg from "../assets/header_bg_all.png";
 import TitleImage from "../assets/Title.png";
 import logo from "@/assets/header_img.png";
 
+import useSutraStore from "@/store/sutraStore";
+import useLanguageStore from "@/store/languageStore";
+
 export default function LearnMorePage() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { setSutraNo, setKhandaNo } = useSutraStore();
+  const { setLanguage } = useLanguageStore();
+
+  // Extract values from location.state
+  const { sutraNo, khandaNo, lang } = location.state || {};
+
+  //Sync values from search into global store on mount
+  useEffect(() => {
+    if (sutraNo && khandaNo) {
+      setSutraNo(sutraNo);
+      setKhandaNo(khandaNo);
+    }
+    if (lang) {
+      setLanguage(lang);
+    }
+  }, [sutraNo, khandaNo, lang]);
 
   /** Top‑level nav buttons except Help (that’s now in HelpDropdown) */
   const navItems = [
@@ -27,7 +47,6 @@ export default function LearnMorePage() {
 
   return (
     <BaseLayout>
-      {/* Prevent horizontal scroll on the entire page */}
       <div className="w-full h-full overflow-x-hidden">
         {/* ========== Header ========== */}
         <header
@@ -81,8 +100,6 @@ export default function LearnMorePage() {
                 {label}
               </TexturedButton>
             ))}
-
-            {/* Help dropdown lives here */}
             <HelpDropdown />
           </nav>
         </header>

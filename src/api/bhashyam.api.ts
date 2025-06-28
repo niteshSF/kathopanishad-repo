@@ -1,6 +1,6 @@
-import { Philosophy } from "@/types/types";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { Philosophy } from "@/types/types"
+import { useQuery } from "@tanstack/react-query"
+import axios from "axios"
 import { GLOBAL_CONFIG } from "./config"
 
 const api = axios.create({
@@ -9,27 +9,34 @@ const api = axios.create({
     Accept: "application/json",
     "Content-Type": "application/json",
   },
-});
+})
 
 type TBhashyam = {
-  id: string;
-  text: string;
-  philosophy: Philosophy;
-};
+  id: string
+  text: string
+  philosophy: Philosophy
+}
 
-const getBhashyam = async (chapter: number, number: number, philosophy: Philosophy) => {
-  const language = "sa"; // Sanskrit language
+const getBhashyam = async (
+  chapter: number,
+  number: number,
+  philosophy: Philosophy
+) => {
+  const language = "sa" 
   const response = await api.get(
     `/sutras/${GLOBAL_CONFIG.upanishad}/${chapter}/${number}/bhashyam?lang=${language}&phil=${philosophy}`
-  );
-  // console.log("API Request URL:", `/sutra/${GLOBAL_CONFIG.upanishad}/${chapter}/${number}/bhashyam?lang=${language}&phil=${philosophy}`);
-  // console.log("API Response:", response.data);
-  return response.data;
-};
+  )
 
-export const useGetBhashyamQuery = (chapter: number, number: number, philosophy: Philosophy) => {
+  return response.data
+}
+
+export const useGetBhashyamQuery = (
+  chapter: number,
+  number: number,
+  philosophy: Philosophy
+) => {
   return useQuery<TBhashyam>({
     queryKey: ["bhashyams", 0, number, philosophy],
     queryFn: () => getBhashyam(chapter, number, philosophy),
-  });
-};
+  })
+}

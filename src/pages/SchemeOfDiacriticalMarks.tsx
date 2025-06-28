@@ -1,22 +1,22 @@
-import Header from "@/components/shared/Header";
-import sdm from "@/assets/sdm.png";
+import Header from "@/components/shared/Header"
+import sdm from "@/assets/sdm.png"
 
 export default function SchemeOfDiacriticalMarks() {
   return (
-    <div className="w-full overflow-x-hidden">
-      <Header />
+    <div className="w-full h-screen overflow-hidden">
+      {/* Fixed Header */}
+      <div className="fixed top-0 left-0 w-full z-50">
+        <Header />
+      </div>
 
-      <img
-        src={sdm}
-        alt="Scheme Of Diacritical Marks"
-        style={{
-          width: "100vw",
-          height: "100vh",
-          objectFit: "fill",
-          marginTop: "-20px",
-          display: "block",
-        }}
-      />
+      {/* Scrollable content area below header */}
+      <div className="mt-[61px] h-[calc(100vh-44px)] overflow-auto">
+        <img
+          src={sdm}
+          alt="Scheme Of Diacritical Marks"
+          className="w-full h-full object-fill block"
+        />
+      </div>
     </div>
-  );
+  )
 }

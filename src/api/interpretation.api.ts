@@ -27,8 +27,7 @@ const getInterpretation = async (
   const response = await api.get(
     `/sutras/${GLOBAL_CONFIG.upanishad}/${chapter}/${number}/interpretation?lang=${lang}&phil=${philosophy}`
   )
-  // console.log(  `/sutras/${GLOBAL_CONFIG.upanishad}/${chapter}/${number}/interpretation?lang=${lang}&phil=${philosophy}`,)
-  // console.log(response.data)
+  
   return response.data
 }
 

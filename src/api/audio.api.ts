@@ -15,20 +15,32 @@ type TAudio = {
   file_path: string
 }
 
+type AudioQueryParams = {
+  chapter: number
+  number: number
+  mode: Mode
+}
+
 const getAudio = async (chapter: number, number: number, mode: Mode) => {
+  console.log(
+    "API call:",
+    `/sutras/${GLOBAL_CONFIG.upanishad}/${chapter}/${number}/audio?mode=${mode}`
+  )
+
   const response = await api.get(
     `/sutras/${GLOBAL_CONFIG.upanishad}/${chapter}/${number}/audio?mode=${mode}`
   )
   return response.data
 }
 
-export const useGetAudioQuery = (
-  chapter: number,
-  number: number,
-  mode: Mode
-) => {
+export const useGetAudioQuery = ({
+  chapter,
+  number,
+  mode,
+}: AudioQueryParams) => {
   return useQuery<TAudio>({
     queryKey: ["audio", chapter, number, mode],
     queryFn: () => getAudio(chapter, number, mode),
   })
 }
+

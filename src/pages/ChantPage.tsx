@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useEffect, useRef, useState } from "react"
 import BaseLayout from "@/layouts/BaseLayout"
 import LeftScroll from "@/components/app/LeftScroll"
@@ -11,12 +13,31 @@ import Header_bg from "../assets/header_bg_all.png"
 import TitleImage from "../assets/Title.png"
 import logo from "@/assets/header_img.png"
 import TexturedButton from "@/components/shared/TexturedButton"
-import dropdownImg from "@/assets/light_bar.png" // ✅ Replace with actual image name
+import dropdownImg from "@/assets/light_bar.png"
 import SearchBar from "@/components/app/SearchBar"
+
+import useSutraStore from "@/store/sutraStore"
+import useLanguageStore from "@/store/languageStore"
 
 export default function ChantPage() {
   const navigate = useNavigate()
   const location = useLocation()
+  const { khandaNo, sutraNo, lang } = location.state || {}
+
+  const { setSutraNo, setKhandaNo } = useSutraStore()
+  const { setLanguage } = useLanguageStore()
+
+  // 🧠 Update store from navigation state
+  useEffect(() => {
+    if (khandaNo && sutraNo) {
+      setKhandaNo(khandaNo)
+      setSutraNo(sutraNo)
+    }
+    if (lang) {
+      setLanguage(lang)
+    }
+  }, [khandaNo, sutraNo, lang])
+
   const [openDropdown, setOpenDropdown] = useState<string>("")
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -37,7 +58,6 @@ export default function ChantPage() {
     },
   ]
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -114,7 +134,6 @@ export default function ChantPage() {
                 )
               }
 
-              // Dropdown for "Help"
               return (
                 <div key={item.label} className="relative">
                   <TexturedButton

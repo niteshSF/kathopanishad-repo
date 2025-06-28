@@ -24,7 +24,7 @@ type TSutraList = {
 }
 
 const getSutra = async (chapter: number, number: number) => {
-  // console.log(`Fetching Sutra: Chapter ${chapter}, Number ${number}`);
+
   const response = await api.get(`/sutras/${GLOBAL_CONFIG.upanishad}/${chapter}/${number}`);
   return response.data;
 };

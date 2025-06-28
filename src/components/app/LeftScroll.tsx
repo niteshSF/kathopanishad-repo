@@ -37,7 +37,7 @@ const LeftScroll = () => {
 
   return (
     <div
-      className="flex flex-col h-[580px] w-[230px] justify-center pb-8 gap-10 items-center bg-cover bg-no-repeat bg-center"
+      className="flex flex-col h-[640px] w-[230px] justify-center pb-8 gap-10 items-center bg-cover bg-no-repeat bg-center"
       style={{
         backgroundImage: `url(${VScrollImg})`,
         backgroundSize: "100% 100%",

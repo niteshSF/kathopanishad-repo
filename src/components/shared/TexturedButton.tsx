@@ -4,7 +4,7 @@ import BtnTextureDark from "@/assets/button_texture_dark.png"
 import { cn } from "@/lib/utils"
 
 interface TexturedButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  extends React.ButtonHTMLAttributes<HTMLDivElement> {
   className?: string
   children?: React.ReactNode
   selected?: boolean
@@ -14,37 +14,41 @@ const TexturedButton = ({
   className,
   children,
   selected = false,
+  onClick,
   ...props
 }: TexturedButtonProps) => {
+  const [hover, setHover] = React.useState(false)
+
+  const getBackground = () => (hover || selected ? BtnTextureDark : BtnTexture)
+
   return (
-    <button
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault()
+          onClick?.(e as any)
+        }
+      }}
       className={cn(
-        `inline-block px-6 pt-2 pb-3 font-bold items-center ${
-          selected ? "text-white" : "text-darkorange"
+        `inline-block px-6 pt-2 pb-3 font-bold items-center cursor-pointer focus:outline-none ${
+          selected || hover ? "text-white" : "text-darkorange"
         }`,
         className
       )}
       style={{
-        backgroundImage: `url(${selected ? BtnTextureDark : BtnTexture})`,
+        backgroundImage: `url(${getBackground()})`,
         backgroundSize: "100% 100%",
         backgroundRepeat: "no-repeat",
       }}
-      onMouseEnter={(e) => {
-        if (!selected) {
-          e.currentTarget.style.backgroundImage = `url(${BtnTextureDark})`
-          e.currentTarget.classList.add("text-white")
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!selected) {
-          e.currentTarget.style.backgroundImage = `url(${BtnTexture})`
-          e.currentTarget.classList.remove("text-white")
-        }
-      }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
       {...props}
     >
       {children}
-    </button>
+    </div>
   )
 }
 

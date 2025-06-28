@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import LargeHorizontalScroll from "@/assets/large_horizontal_scroll.png"
 import ErrorMessage from "../shared/ErrorMessage"
 import useBhashyamStore from "@/store/bhashyamStore"

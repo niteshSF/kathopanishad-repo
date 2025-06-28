@@ -3,7 +3,7 @@ import IntroductionImage from "../assets/intro-desktop.png";
 import enterButton from "../assets/intro-enter.png";
 
 const IntroductionPage = () => {
-  const navigate = useNavigate(); // ✅ Correct way to navigate in React Router v6
+  const navigate = useNavigate(); // Correct way to navigate in React Router v6
 
   return (
     <div>
@@ -19,7 +19,7 @@ const IntroductionPage = () => {
         src={enterButton}
         alt="Next"
         style={{ position: "absolute", bottom: "80px", right: "220px", cursor: "pointer", width: "220px" }}
-        onClick={() => navigate("/chant")} // ✅ Navigate to ChantPage when clicked
+        onClick={() => navigate("/chant")} // Navigate to ChantPage when clicked
       />
     </div>
   );

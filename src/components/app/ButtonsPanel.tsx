@@ -22,14 +22,19 @@ import { Slider } from "../ui/slider"
 import useModeStore from "@/store/modeStore"
 
 const ButtonsPanel = () => {
-  const {khanda_no, sutra_no, incrementSutra, decrementSutra } = useSutraStore()
+  const { khanda_no, sutra_no, incrementSutra, decrementSutra } =
+    useSutraStore()
   const { mode } = useModeStore()
   const [isPlaying, setIsPlaying] = useState(false)
   const [isRepeating, setIsRepeating] = useState(false)
   const [volume, setVolume] = useState(1) // Default volume set to max (1.0)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  const { data } = useGetAudioQuery(khanda_no, sutra_no, mode)
+  const { data } = useGetAudioQuery({
+    chapter: khanda_no,
+    number: sutra_no,
+    mode,
+  })
 
   // Play the fetched audio when sutra_no changes
   useEffect(() => {
@@ -105,7 +110,7 @@ const ButtonsPanel = () => {
 
   return (
     <div className="flex justify-center gap-2 mt-5 mb-4">
-      <TexturedButton onClick={handlePrevious} title="Next">
+      <TexturedButton onClick={handlePrevious} title="Previous">
         <ChevronFirst />
       </TexturedButton>
 
@@ -116,7 +121,7 @@ const ButtonsPanel = () => {
         {isPlaying ? <Pause /> : <Play />}
       </TexturedButton>
 
-      <TexturedButton onClick={handleNext} title="Previous">
+      <TexturedButton onClick={handleNext} title="Next">
         <ChevronLast />
       </TexturedButton>
 
